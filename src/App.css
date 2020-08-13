@@ -2,11 +2,13 @@
   background-color: #201f20 !important;
   height: 800px;
 }
+
 .header {
   text-align: center;
   background-color: #4878ab;
   font-family: Arial, Helvetica, sans-serif;
 }
+
 h4, h1 {
   margin: 0;
   color: white;
@@ -23,7 +25,13 @@ h4 {
   padding-right: 20%;
 }
 
-button, .message {
+.message {
+  font-size: small !important;
+  font-weight: 700 !important;
+  box-shadow: none  !important;
+}
+
+button {
   font-size: small !important;
   font-weight: 700 !important;
   color:#4878ab !important;
@@ -39,6 +47,7 @@ button:hover, .chosen-level {
 .row {
   justify-content: center;
 }
+
 .row div {
   /* background-color: violet; */
   width: 120px;

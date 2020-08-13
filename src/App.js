@@ -118,6 +118,7 @@ export class App extends Component {
   }
 
   render(){
+    var messageColor= this.state.Message=="TRY AGAIN"? "red": "#2ee82e";
     return (
       <div className="game">
         <div className="header">
@@ -128,7 +129,7 @@ export class App extends Component {
 
         <div className="bar">
           <button className="btn rounded-0" onClick={this.changeColors}> NEW COLORS </button>
-          <span className=" message ml-5 mr-5"> {this.state.Message} </span>
+          <span className=" message ml-5 mr-5" style={{color: messageColor}}> {this.state.Message} </span>
           <button className="btn rounded-0" id="easy" onClick={this.chooseLevel}> EASY </button>
           <button className="btn rounded-0 chosen-level" id="hard" onClick={this.chooseLevel}> HARD </button>
         </div>
