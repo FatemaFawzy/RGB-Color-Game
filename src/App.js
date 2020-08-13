@@ -28,7 +28,7 @@ export class App extends Component {
       Blue: randomize(),
       Message: "",
       win: false,
-      correctBoxId: this.state.difficult? Math.floor(Math.random() * 7): Math.floor(Math.random() * 4),
+      correctBoxId: this.state.difficult? Math.floor(Math.random() * 6) + 1 : Math.floor(Math.random() * 3) + 1,
     }, ()=> {
       for (var i=1; i<7; i++) {
         if (document.getElementById(i)) 
