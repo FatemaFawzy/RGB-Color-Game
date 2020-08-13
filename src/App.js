@@ -76,6 +76,7 @@ export class App extends Component {
     if (id!=this.state.correctBoxId) {
       this.setState({Message: "TRY AGAIN"});
       box.classList.add("hide");
+      box.classList.remove("show");
     }
     else if(id==this.state.correctBoxId) {
       const correctColor= "rgb("+this.state.Red+","+this.state.Green+","+this.state.Blue+")";
@@ -83,6 +84,7 @@ export class App extends Component {
       for (var i=1; i<7 ; i++) {
         if(document.getElementById(i)) {
           document.getElementById(i).classList.remove("hide");
+          document.getElementById(i).classList.add("show");
           document.getElementById(i).style.backgroundColor= correctColor;
           if (document.getElementsByClassName("header")) document.getElementsByClassName("header")[0].style.backgroundColor= correctColor;
         }

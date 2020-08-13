@@ -48,5 +48,13 @@ button:hover, .chosen-level {
 }
 
 .hide {
-  visibility: hidden !important;
+  visibility: hidden ;
+  opacity: 0;
+  transition: visibility 0s 0.5s, opacity 0.5s linear;
+}
+
+.show {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0.5s 0s, opacity 0.5s linear;  
 }
