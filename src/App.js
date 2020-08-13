@@ -16,7 +16,11 @@ export class App extends Component {
   }
 
   componentDidMount() {
+
+    // reset the header color to a shade of blue
     if (document.getElementsByClassName("header")) document.getElementsByClassName("header")[0].style.backgroundColor= "#4878ab";
+
+    // get a random color and set it to one of the boxes. Get random colors for the rest of the boxes
     this.setState({
       Red: randomize(),
       Green: randomize(),
@@ -24,17 +28,18 @@ export class App extends Component {
       Message: "",
       correctBoxId: this.state.difficult? Math.floor(Math.random() * 7): Math.floor(Math.random() * 4),
     }, ()=> {
-      if (document.getElementById(this.state.correctBoxId)) 
-        document.getElementById(this.state.correctBoxId).style.backgroundColor = "rgb("+this.state.Red+","+this.state.Green+","+this.state.Blue+")";
-      for (var i=1; i<7 && i!=this.state.correctBoxId; i++) {
+      for (var i=1; i<7; i++) {
         if (document.getElementById(i)) 
         document.getElementById(i).style.backgroundColor = "rgb("+randomize()+","+randomize()+","+randomize()+")";
       }
+      if (document.getElementById(this.state.correctBoxId)) 
+        document.getElementById(this.state.correctBoxId).style.backgroundColor = "rgb("+this.state.Red+","+this.state.Green+","+this.state.Blue+")";
     });
 
   }
 
   chooseLevel =e => {
+
     const {id} = e.target;
     const level= document.getElementById(id);
     var otherlevel;
@@ -42,8 +47,10 @@ export class App extends Component {
 
     if(id==="easy") {
       otherlevel= document.getElementById("hard");
+      // hide the second row to reduce the number of boxes
       secondRow.classList.add("hide");
       this.setState({ difficult: false, Message: ""}, ()=> {
+        // reset everything
         this.componentDidMount();
       });
     }
@@ -55,8 +62,11 @@ export class App extends Component {
       });
     }
 
+    // highlight the chosen level button
     level.classList.add("chosen-level");
     otherlevel.classList.remove("chosen-level");
+
+    // show all boxes to start a new game
     for (var i=1; i<7 ; i++) {
       if(document.getElementById(i)) document.getElementById(i).classList.remove("hide");
     }
@@ -65,6 +75,7 @@ export class App extends Component {
 
   changeColors =e => {
     this.componentDidMount();
+    // show all boxes to start a new game
     for (var i=1; i<7 ; i++) {
       if(document.getElementById(i)) document.getElementById(i).classList.remove("hide");
     }
@@ -73,19 +84,25 @@ export class App extends Component {
   pickBox =e => {
     const {id} = e.target;
     const box= document.getElementById(id);
+
+    // if the wrong box is picked hide it and show a try again message
     if (id!=this.state.correctBoxId) {
       this.setState({Message: "TRY AGAIN"});
       box.classList.add("hide");
       box.classList.remove("show");
     }
+
+    // if the correct box is picked show a correct message
     else if(id==this.state.correctBoxId) {
       const correctColor= "rgb("+this.state.Red+","+this.state.Green+","+this.state.Blue+")";
       this.setState({Message: "  CORRECT!  "});
+      // show all the boxes and make them the same color
       for (var i=1; i<7 ; i++) {
         if(document.getElementById(i)) {
           document.getElementById(i).classList.remove("hide");
           document.getElementById(i).classList.add("show");
           document.getElementById(i).style.backgroundColor= correctColor;
+          // change the header color to match the boxes
           if (document.getElementsByClassName("header")) {
             document.getElementsByClassName("header")[0].style.backgroundColor= correctColor;
             document.getElementsByClassName("header")[0].style.transition= "background-color 0.5s 0s"
