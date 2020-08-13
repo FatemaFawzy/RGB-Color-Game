@@ -86,7 +86,10 @@ export class App extends Component {
           document.getElementById(i).classList.remove("hide");
           document.getElementById(i).classList.add("show");
           document.getElementById(i).style.backgroundColor= correctColor;
-          if (document.getElementsByClassName("header")) document.getElementsByClassName("header")[0].style.backgroundColor= correctColor;
+          if (document.getElementsByClassName("header")) {
+            document.getElementsByClassName("header")[0].style.backgroundColor= correctColor;
+            document.getElementsByClassName("header")[0].style.transition= "background-color 0.5s 0s"
+          }
         }
       }      
     }
