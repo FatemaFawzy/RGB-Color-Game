@@ -13,6 +13,7 @@ export class App extends Component {
     Message: "",
     correctBoxId: 0,
     difficult: true,
+    Win: false,
   }
 
   componentDidMount() {
@@ -26,6 +27,7 @@ export class App extends Component {
       Green: randomize(),
       Blue: randomize(),
       Message: "",
+      win: false,
       correctBoxId: this.state.difficult? Math.floor(Math.random() * 7): Math.floor(Math.random() * 4),
     }, ()=> {
       for (var i=1; i<7; i++) {
@@ -85,30 +87,33 @@ export class App extends Component {
     const {id} = e.target;
     const box= document.getElementById(id);
 
-    // if the wrong box is picked hide it and show a try again message
-    if (id!=this.state.correctBoxId) {
-      this.setState({Message: "TRY AGAIN"});
-      box.classList.add("hide");
-      box.classList.remove("show");
-    }
+    // enable picking only while the game is still on
+    if (!this.state.win) {
+      // if the wrong box is picked hide it and show a try again message
+      if (id!=this.state.correctBoxId) {
+        this.setState({Message: "TRY AGAIN"});
+        box.classList.add("hide");
+        box.classList.remove("show");
+      }
 
-    // if the correct box is picked show a correct message
-    else if(id==this.state.correctBoxId) {
-      const correctColor= "rgb("+this.state.Red+","+this.state.Green+","+this.state.Blue+")";
-      this.setState({Message: "  CORRECT!  "});
-      // show all the boxes and make them the same color
-      for (var i=1; i<7 ; i++) {
-        if(document.getElementById(i)) {
-          document.getElementById(i).classList.remove("hide");
-          document.getElementById(i).classList.add("show");
-          document.getElementById(i).style.backgroundColor= correctColor;
-          // change the header color to match the boxes
-          if (document.getElementsByClassName("header")) {
-            document.getElementsByClassName("header")[0].style.backgroundColor= correctColor;
-            document.getElementsByClassName("header")[0].style.transition= "background-color 0.5s 0s"
+      // if the correct box is picked show a correct message
+      else if(id==this.state.correctBoxId) {
+        const correctColor= "rgb("+this.state.Red+","+this.state.Green+","+this.state.Blue+")";
+        this.setState({Message: "  CORRECT!  ", win: true});
+        // show all the boxes and make them the same color
+        for (var i=1; i<7 ; i++) {
+          if(document.getElementById(i)) {
+            document.getElementById(i).classList.remove("hide");
+            document.getElementById(i).classList.add("show");
+            document.getElementById(i).style.backgroundColor= correctColor;
+            // change the header color to match the boxes
+            if (document.getElementsByClassName("header")) {
+              document.getElementsByClassName("header")[0].style.backgroundColor= correctColor;
+              document.getElementsByClassName("header")[0].style.transition= "background-color 0.5s 0s"
+            }
           }
-        }
-      }      
+        }      
+      }
     }
   }
 
