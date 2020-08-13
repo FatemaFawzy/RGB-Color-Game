@@ -16,7 +16,7 @@ export class App extends Component {
   }
 
   componentDidMount() {
-
+    if (document.getElementsByClassName("header")) document.getElementsByClassName("header")[0].style.backgroundColor= "#4878ab";
     this.setState({
       Red: randomize(),
       Green: randomize(),
@@ -77,7 +77,17 @@ export class App extends Component {
       this.setState({Message: "TRY AGAIN"});
       box.classList.add("hide");
     }
-    else if(id==this.state.correctBoxId) this.setState({Message: "  CORRECT!  "});
+    else if(id==this.state.correctBoxId) {
+      const correctColor= "rgb("+this.state.Red+","+this.state.Green+","+this.state.Blue+")";
+      this.setState({Message: "  CORRECT!  "});
+      for (var i=1; i<7 ; i++) {
+        if(document.getElementById(i)) {
+          document.getElementById(i).classList.remove("hide");
+          document.getElementById(i).style.backgroundColor= correctColor;
+          if (document.getElementsByClassName("header")) document.getElementsByClassName("header")[0].style.backgroundColor= correctColor;
+        }
+      }      
+    }
   }
 
   render(){

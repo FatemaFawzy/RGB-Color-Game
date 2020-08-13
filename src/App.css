@@ -23,7 +23,7 @@ h4 {
   padding-right: 20%;
 }
 
-button, #message {
+button, .message {
   font-size: small !important;
   font-weight: 700 !important;
   color:#4878ab !important;
